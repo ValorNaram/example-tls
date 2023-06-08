@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  ca:
+    image: smallstep/step-ca:latest
+    # ports:
+    #   - 9000:9000
+    environment:
+      DOCKER_STEPCA_INIT_NAME: arrow
+      DOCKER_STEPCA_INIT_DNS_NAMES: localhost,ca
+      DOCKER_STEPCA_INIT_PROVISIONER_NAME: arrow-provisioner
+      DOCKER_STEPCA_INIT_ACME: default-acme
+      #DOCKER_STEPCA_INIT_PASSWORD_FILE: /run/secrets/ca_password
+    secrets:
+      - ca_password
+    #volumes:
+    #  - "./certs:/home/step/certs"
+
+secrets:
+  ca_password:
+    file: ./passwd
+
+networks:
+  default:
+    name: example-tls

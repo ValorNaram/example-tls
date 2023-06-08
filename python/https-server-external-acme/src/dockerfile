@@ -1,0 +1,21 @@
+# Example from https://github.com/smallstep/docker-tls/blob/main/mongodb/Dockerfile heavily modified
+# -- Use this only if the service has no ACME client built in --
+FROM smallstep/step-cli as step
+FROM python:3.8-alpine
+
+COPY --from=step /usr/local/bin/step /usr/local/bin/
+
+WORKDIR /app
+
+# the following environment variables are not used from within this dockerfile but by scripts in the image this dockerfile builds
+## Variable              Description
+## ------------------------------------
+## STEPPATH              Directory where to store the settings used for CA/server certificate receiving and server certificate renewing
+## STEP_NOT_AFTER        Timespan to request a certificate for (default: 5 minutes)
+ENV STEPPATH=/app/.step STEP_NOT_AFTER=5m
+
+RUN apk add bash
+
+COPY . .
+
+ENTRYPOINT [ "/app/entrypoint.sh" ]

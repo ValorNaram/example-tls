@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  dummy:
+    image: example-acme-wrapper:dummy
+    build:
+      context: ./src
+      dockerfile: dockerfile
+    ports:
+      - 7777:443
+    env_file:
+      - ./.env
+      - ../../ca/ca_fingerprint.env
+
+networks:
+  default:
+    name: example-tls
