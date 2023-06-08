@@ -10,7 +10,7 @@ WORKDIR /app
 # the following environment variables are not used from within this dockerfile but by scripts in the image this dockerfile builds
 ## Variable              Description
 ## ------------------------------------
-## STEPPATH              Directory where to store the settings used for CA/server certificate receiving and server certificate renewing
+## STEPPATH              Directory where to store the settings used for CA/server certificate retrieval and server certificate renewal
 ## STEP_NOT_AFTER        Timespan to request a certificate for (default: 5 minutes)
 ENV STEPPATH=/app/.step STEP_NOT_AFTER=5m
 
